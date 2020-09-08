@@ -3,31 +3,34 @@
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get("/", 'ViewController@viewHome');
+Route::get("/article", 'ViewController@articleCreation');
 
-Route::get('/dashboard', function() {
-    return view('dashboard');
-});
-
-Route::get("/", function() {
-    return view("welcome");
-});
-
-Route::get("/db", "ArticleController@index");
-
-Route::get("/article", 'ViewController@viewHome');
+// Create
 Route::post('/article/create', 'ArticleController@create')->name('createArticle');
 
-Route::get("/article/{id}/edit", "ArticleController@edit");
-Route::post("/article/{id}/update", "ArticleController@update");
+// Read
+Route::get("/db", "ArticleController@index");
 
-Route::get("/article/{id}/delete", "ArticleController@delete");
+// Edit and Update
+Route::get("/article/{id}/edit", "ArticleController@edit");
+Route::patch("/article/{id}/update", "ArticleController@update");
+
+// Delete
+Route::delete("/article/{id}/delete", "ArticleController@delete");
+
+// Read an article
+Route::get("/article/{id}", "ArticleController@getArticle")->name("getArticle");
+
+// Register
+Route::get("/register", "ViewController@viewRegister");
+Route::post("/user/create", "UserTempController@create")->name("createUser");
+
+// Login
+Route::get("/login", "ViewController@viewLogin");
+Route::post("/user/login", "UserTempController@login")->name("loginUser");
+
+// Newsletter
+Route::get("/newsletter", function () {
+    return view("newsletter-main");
+});

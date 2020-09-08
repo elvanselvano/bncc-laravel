@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'dashboard');
+@section('title', 'dashboard')
 
 @section("content")
+
 
 <div class="container">
     <div class="row">
@@ -12,10 +13,21 @@
             @foreach($article_data as $article)
             <div class="card mb-3">
                 <div class="card-header">
-                    {{$article->title}}
+                    <img src="{{ asset('storage/' . $article->image) }}" width="300px" alt="">
                     <br>
-                    <a href="/article/{{$article->id}}/edit">Edit</a>
-                    <a href="/article/{{$article->id}}/delete">Delete</a>
+                    <strong><a href="{{ route("getArticle", $article->id) }}">{{$article->title}}</a></strong>
+                    <br>
+                    <p>Written by {{ $article->author }}</p>
+                    <button class="btn btn-link text-primary p-0" type="submit">
+                        <a href="/article/{{$article->id}}/edit">Edit</a>
+                    </button>
+                    <form action="/article/{{$article->id}}/delete" method="post">
+                        @csrf
+                        @method("delete")
+                        <button class="btn btn-link text-danger p-0" type="submit">
+                            Delete
+                        </button>
+                    </form>
                 </div>
                 <div class="card-body">
                     <div>
