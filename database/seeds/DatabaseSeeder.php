@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         // php artisan db:seed
         $this->call(ArticleSeeder::class);
+        $this->call(CommentSeeder::class);
     }
 }
