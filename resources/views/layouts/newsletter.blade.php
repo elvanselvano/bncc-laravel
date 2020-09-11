@@ -7,7 +7,9 @@
         <div class="input-group">
              <input type="email" class="form-control" placeholder="Enter your email">
              <span class="input-group-btn">
-             <button class="btn" type="submit">Subscribe Now</button>
+             <button class="btn" type="submit">
+                <a href="{{ route("sendMail") }}">Subscribe Now</a>
+            </button>
              </span>
               </div>
         </div>

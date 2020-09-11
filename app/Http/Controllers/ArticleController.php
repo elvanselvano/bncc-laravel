@@ -6,6 +6,9 @@ use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\Newsletter;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\ProcessMail;
 
 class ArticleController extends Controller
 {
@@ -90,5 +93,14 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         return view("article", ["article" => $article]);
+    }
+
+    public function sendMail()
+    {
+        // php artisan make:mail Newsletter
+        // return (new Newsletter())->render();
+        // Mail::send(new Newsletter());
+        // Mail::to($request->email)->send();
+        $this->dispatch(new ProcessMail());
     }
 }

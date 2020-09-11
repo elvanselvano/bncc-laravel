@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
+
+Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get("/", 'ViewController@viewHome');
 Route::get("/article", 'ViewController@articleCreation');
@@ -22,15 +24,12 @@ Route::delete("/article/{id}/delete", "ArticleController@delete");
 // Read an article
 Route::get("/article/{id}", "ArticleController@getArticle")->name("getArticle");
 
-// Register
-Route::get("/register", "ViewController@viewRegister");
-Route::post("/user/create", "UserTempController@create")->name("createUser");
-
-// Login
-Route::get("/login", "ViewController@viewLogin");
-Route::post("/user/login", "UserTempController@login")->name("loginUser");
-
 // Newsletter
 Route::get("/newsletter", function () {
     return view("newsletter-main");
 });
+
+// Post Newsletter
+Route::get("/mail", "ArticleController@sendMail")->name("sendMail");
+
+Route::get('/home', 'HomeController@index')->name('home');
